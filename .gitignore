@@ -1,0 +1,89 @@
+# ============================================
+# ST Nav - Git 忽略规则
+# ============================================
+
+# ---------- Node.js / npm 本地开发 ----------
+# npm 安装产生的依赖目录
+node_modules/
+
+# npm 调试日志
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------- Cloudflare Wrangler 本地文件 ----------
+# Wrangler 本地缓存、开发状态及生成文件
+.wrangler/
+
+# ---------- 本地环境变量 / 敏感配置 ----------
+# 本地开发环境变量，禁止提交密码、密钥等
+.dev.vars
+.dev.vars.*
+
+# 本地环境配置
+.env
+.env.*
+!.env.example
+
+# ---------- 本地开发工具 ----------
+# 本项目本地构建/开发使用的 Node 配置
+package.json
+package-lock.json
+npm-shrinkwrap.json
+yarn.lock
+pnpm-lock.yaml
+
+# Node.js 版本管理文件
+.nvmrc
+
+# ---------- 本地构建 / 部署脚本 ----------
+# 本地构建、检查、部署辅助脚本
+scripts/
+
+# ---------- D1 数据库迁移 ----------
+# D1 migration 文件仅保留在本地，不推送到远程仓库
+#migrations/
+
+# ---------- 操作系统产生的文件 ----------
+# Android / Windows / macOS 等系统产生的临时文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Android 文件管理器可能产生的临时文件
+*.tmp
+*.temp
+
+# ---------- 编辑器 / IDE ----------
+# VS Code
+.vscode/
+
+# JetBrains IDE
+.idea/
+
+# 临时编辑文件
+*.swp
+*.swo
+*~
+
+# ---------- 本地测试 / 调试输出 ----------
+# 常见测试覆盖率目录
+coverage/
+
+# 临时输出目录
+tmp/
+temp/
+
+# 本地生成的日志
+*.log
+
+#备份文件
+*.bak
+*.bak2
+*.bak3
+
+#压缩包文件
+*.zip
+*.rar
+*.7z
