@@ -40,7 +40,6 @@ slink-nav/
 其中：
 
 - `_worker.js`：完整 Worker、前端资源、API、数据库初始化及升级逻辑。
-- `wrangler.toml`：Cloudflare 项目及 D1 Binding 配置。
 - `README.md`：项目说明及部署文档。
 
 ---
@@ -51,7 +50,7 @@ slink-nav/
 > 推荐使用 **Cloudflare Pages 上传部署**。项目无需额外构建，上传项目目录即可运行。
 
 >[!WARNING]
-> 首次部署前请先创建 D1 数据库，并正确配置 `database_id`。不要删除已有 D1 数据库来进行版本升级。
+> 首次部署前请先创建 D1 数据库，并正确配置 
 
 ### 🛠 Pages 上传部署方法
 
@@ -59,27 +58,18 @@ slink-nav/
 <summary><code><strong>「 Pages 上传文件部署文字教程 」</strong></code></summary>
 
 1. 创建 Cloudflare D1 数据库：
-   - 进入 Cloudflare 控制台的 **D1**。
    - 创建一个数据库，例如命名为 `slink-nav`。
-   - 复制该数据库的 **Database ID**。
 
-2. 修改 `wrangler.toml`：
-   - 将：
-     ```toml
-     database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
-     ```
-   - 修改为你的实际 D1 Database ID。
-
-3. 部署 CF Pages：
+2. 部署 CF Pages：
    - 在 Cloudflare Pages 中选择 **上传资产**。
    - 上传 `slinknav` 项目目录或打包后的项目文件。
    - 项目不需要执行前端构建命令。
    - 部署完成后访问你的 Pages 域名。
 
-4. 配置环境变量/Secrets：
+3. 配置环境变量/Secrets：
    - `ADMIN_PASSWORD`：后台管理员登录密码。
-   - `SESSION_SECRET`：用于后台会话安全，建议使用随机高强度字符串。
-   - D1 数据库通过 `wrangler.toml` 中的 `DB` Binding 提供。
+   
+4. 绑定D1数据库 变量必须填写 `DB` 选择刚刚你创建的d1数据库 例如命名为 `slink-nav` 的数据库
 
 5. 访问后台：
    - 打开：
@@ -101,7 +91,6 @@ slink-nav/
 4. 构建设置无需复杂的前端构建流程，项目运行入口为 `_worker.js`。
 5. 配置生产环境变量/Secrets：
    - `ADMIN_PASSWORD`
-   - `SESSION_SECRET`
 6. 确认 D1 Binding 使用变量名：
    ```text
    DB
@@ -110,24 +99,6 @@ slink-nav/
 
 </details>
 
-### ⚙️ Wrangler 配置
-
-项目已经提供 `wrangler.toml`，用于保存 Cloudflare 项目名称及 D1 Binding 信息。
-
-```toml
-name = "slink-nav"
-compatibility_date = "2026-09-19"
-pages_build_output_dir = "."
-
-[[d1_databases]]
-binding = "DB"
-database_name = "slink-nav"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
-```
-
-部署前必须将 `database_id` 替换成实际 D1 Database ID。
-
----
 
 ## 🔑 环境变量说明
 
@@ -135,7 +106,7 @@ database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
 | :--- | :---: | :--- | :--- |
 | **ADMIN_PASSWORD** | ✅ | `YourStrongPassword` | 管理后台登录密码 |
 | **SESSION_SECRET** | ✅ | `随机高强度字符串` | 后台 Session 签名/安全密钥，建议使用 Cloudflare Secret |
-| **DB** | ✅ | `D1 Binding` | 由 `wrangler.toml` 的 D1 Binding 提供，不需要手动填写字符串值 |
+| **DB** | ✅ | `D1 Binding` |绑定d1数据库 |
 
 > [!WARNING]
 > `ADMIN_PASSWORD` 和 `SESSION_SECRET` 不建议直接写入 `_worker.js` 或提交到公开仓库，推荐使用 Cloudflare Secrets / 环境变量配置。
